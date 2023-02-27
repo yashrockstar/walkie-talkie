@@ -4,7 +4,8 @@
   "description": "walk and talk to the people who are in same network",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "Yashwant Narayan",
   "license": "ISC",
@@ -12,7 +13,6 @@
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "http": "^0.0.1-security",
-    "nodemon": "^2.0.20",
     "path": "^0.12.7",
     "socket.io": "^4.6.1"
   }
