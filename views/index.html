@@ -27,12 +27,18 @@
         margin: 60px auto;
         overflow: hidden;
         position: relative;
+        cursor: pointer;
+        pointer-events: none;
+      }
+
+      .play-button:hover {
+        cursor: pointer;
       }
 
       .left {
         height: 100%;
         float: left;
-        background-color: #fff;
+        background-color: black;
         width: 36%;
         transition: all 0.25s ease;
         overflow: hidden;
@@ -56,7 +62,7 @@
         background-color: transparent;
         width: 0;
         height: 0;
-        border-right: 300px solid #c0392b;
+        border-right: 300px solid #31323e;
         border-top: 150px solid transparent;
         border-bottom: 150px solid transparent;
         transition: -webkit-transform 0.25s ease;
@@ -68,7 +74,7 @@
         height: 100%;
         float: right;
         width: 36%;
-        background-color: #fff;
+        background-color: black;
         transition: all 0.25s ease;
       }
 
@@ -89,33 +95,1213 @@
         -webkit-transform: translate(0, 50%);
         transform: translate(0, 50%);
       }
+
+      body {
+        text-align: center;
+        font-family: Titillium, Monaco, sans-serif;
+        text-rendering: optimizeLegibility;
+        font-size: 1em;
+        line-height: 1.5em;
+        color: #accaff;
+        background-color: #31323e;
+      }
+      a {
+        color: #accaff;
+        font-size: 0.9em;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #c1d7ff;
+      }
+      p {
+        font-size: 0.65em;
+        margin-top: 1.75em;
+        text-align: center;
+      }
+      li {
+        display: inline-block;
+        padding: 2em;
+        transition: transform 0.15s ease-out;
+      }
+      li:active {
+        transform: scale(1.1);
+      }
+      .face {
+        width: 2em;
+        height: 2em;
+        position: relative;
+        border-radius: 4px;
+        margin: 0 auto;
+        top: 0.5em;
+        z-index: 9;
+      }
+      .eyes {
+        transition-duration: 0.1s;
+        position: absolute;
+        top: 5px;
+        height: 12px;
+        width: 5px;
+      }
+      .left-eye {
+        left: 7px;
+      }
+      .right-eye {
+        right: 7px;
+      }
+      .mouth {
+        transition-duration: 0.2s;
+        position: absolute;
+        bottom: 6px;
+        width: 60%;
+        left: 20%;
+        height: 5px;
+      }
+      .face:hover {
+        cursor: pointer;
+      }
+      .walker {
+        background: #53eca4;
+      }
+      .walker .eyes,
+      .walker .mouth {
+        background: #109054;
+      }
+      .walker:hover {
+        animation: walk 1.6s cubic-bezier(0.71, 0.02, 0.22, 1.36) alternate
+          infinite;
+      }
+      .walker:hover .left-eye {
+        left: 10px;
+      }
+      .walker:hover .right-eye {
+        right: 10px;
+      }
+      .walker:hover .mouth {
+        height: 6px;
+        width: 14%;
+        left: 43%;
+        border-radius: 100%;
+      }
+      .talker {
+        background: #01c9fc;
+      }
+      .talker .eyes,
+      .talker .mouth {
+        background: #00647e;
+      }
+      .talker .mouth {
+        transition: 0;
+      }
+      /* .talker:hover .mouth {
+        transition: 0;
+        animation: talk 0.6s both infinite;
+      } */
+      .talker:hover .chat {
+        opacity: 1;
+      }
+      /* .talker:hover .chat .words {
+        animation: type 1.6s 0.3s infinite both;
+      } */
+      .chat {
+        position: absolute;
+        text-align: center;
+        top: -9px;
+        height: 18px;
+        width: 60px;
+        right: -3.9em;
+        background-color: #fff;
+        opacity: 0;
+        transition: opacity 0.15s ease-out;
+      }
+      .chat .words {
+        width: 22px;
+        margin-left: 5px;
+        white-space: nowrap;
+        color: #474762;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+      .chat:before {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: 0.2em;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 6px 10px 0 0;
+        border-color: #fff transparent transparent transparent;
+      }
+      .monster {
+        background: #ed5151;
+        transform-origin: center center;
+      }
+      .monster:before {
+        content: "";
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 4px 6px 4px;
+        border-color: transparent transparent #b54040 transparent;
+        transform: rotate(-40deg);
+      }
+      .monster:after {
+        content: "";
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 4px 6px 4px;
+        border-color: transparent transparent #b54040 transparent;
+        transform: rotate(40deg);
+      }
+      .monster .eyes {
+        background: #fff;
+        top: 11px;
+        height: 5px;
+      }
+      .monster .left-eye:before {
+        content: "";
+        position: absolute;
+        top: -4px;
+        left: -2px;
+        width: 10px;
+        height: 5px;
+        background-color: #b54040;
+        transform: rotate(35deg);
+      }
+      .monster .right-eye:before {
+        content: "";
+        position: absolute;
+        top: -4px;
+        right: -2px;
+        width: 10px;
+        height: 5px;
+        background-color: #b54040;
+        transform: rotate(-35deg);
+      }
+      .monster .mouth {
+        background: #900f0f;
+        transition: none;
+      }
+      .monster .mouth:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 1px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 3px 3px 0 3px;
+        border-color: #ed5151 transparent transparent transparent;
+      }
+      .monster .mouth:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 1px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 3px 3px 0 3px;
+        border-color: #ed5151 transparent transparent transparent;
+      }
+      .monster .right-eye:before {
+        content: "";
+        position: absolute;
+        top: -4px;
+        right: -2px;
+        width: 10px;
+        height: 5px;
+        background-color: #b54040;
+        transform: rotate(-35deg);
+      }
+      .monster:hover {
+        animation-duration: 100ms;
+        animation-iteration-count: infinite;
+        animation-name: shake-little;
+        animation-timing-function: ease-in-out;
+      }
+      .monster:hover .eyes {
+        top: 8px;
+      }
+      .monster:hover .left-eye {
+        left: 7px;
+      }
+      .monster:hover .left-eye:before {
+        top: -4px;
+        left: -2px;
+        transform: rotate(20deg);
+      }
+      .monster:hover .right-eye {
+        right: 7px;
+      }
+      .monster:hover .right-eye:before {
+        top: -4px;
+        right: -2px;
+        transform: rotate(-20deg);
+      }
+      .monster:hover .mouth {
+        transition: none;
+        height: 14px;
+        width: 70%;
+        left: 15%;
+        border-radius: 100%;
+        top: 16px;
+      }
+      .monster:hover .mouth:before {
+        top: 0;
+        left: 2px;
+      }
+      .monster:hover .mouth:after {
+        top: 0;
+        right: 2px;
+      }
+      .monster:hover .below-teeth:before {
+        content: "";
+        position: absolute;
+        bottom: 2px;
+        left: 7px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 3px 3px 3px;
+        border-color: transparent transparent #ed5151 transparent;
+      }
+      .monster:hover .below-teeth:after {
+        content: "";
+        position: absolute;
+        bottom: 2px;
+        right: 7px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 3px 3px 3px;
+        border-color: transparent transparent #ed5151 transparent;
+      }
+      @-moz-keyframes talk {
+        0%,
+        50% {
+          height: 10px;
+          left: 20%;
+          border-radius: 100%;
+          top: 19px;
+          width: 60%;
+        }
+        25%,
+        75% {
+          bottom: 6px;
+          left: 20%;
+          width: 60%;
+        }
+      }
+      @-webkit-keyframes talk {
+        0%,
+        50% {
+          height: 10px;
+          left: 20%;
+          border-radius: 100%;
+          top: 19px;
+          width: 60%;
+        }
+        25%,
+        75% {
+          bottom: 6px;
+          left: 20%;
+          width: 60%;
+        }
+      }
+      @-o-keyframes talk {
+        0%,
+        50% {
+          height: 10px;
+          left: 20%;
+          border-radius: 100%;
+          top: 19px;
+          width: 60%;
+        }
+        25%,
+        75% {
+          bottom: 6px;
+          left: 20%;
+          width: 60%;
+        }
+      }
+      @keyframes talk {
+        0%,
+        50% {
+          height: 10px;
+          left: 20%;
+          border-radius: 100%;
+          top: 19px;
+          width: 60%;
+        }
+        25%,
+        75% {
+          bottom: 6px;
+          left: 20%;
+          width: 60%;
+        }
+      }
+      @-moz-keyframes walk {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+        50% {
+          transform: translate3d(0.5em, 0, 0);
+        }
+        100% {
+          transform: translate3d(-0.5em, 0, 0);
+        }
+      }
+      @-webkit-keyframes walk {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+        50% {
+          transform: translate3d(0.5em, 0, 0);
+        }
+        100% {
+          transform: translate3d(-0.5em, 0, 0);
+        }
+      }
+      @-o-keyframes walk {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+        50% {
+          transform: translate3d(0.5em, 0, 0);
+        }
+        100% {
+          transform: translate3d(-0.5em, 0, 0);
+        }
+      }
+      @keyframes walk {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+        50% {
+          transform: translate3d(0.5em, 0, 0);
+        }
+        100% {
+          transform: translate3d(-0.5em, 0, 0);
+        }
+      }
+      @-moz-keyframes type {
+        0% {
+          width: 0;
+        }
+        30% {
+          width: 22px;
+        }
+        60% {
+          width: 0;
+        }
+        100% {
+          width: 0;
+        }
+      }
+      @-webkit-keyframes type {
+        0% {
+          width: 0;
+        }
+        30% {
+          width: 22px;
+        }
+        60% {
+          width: 0;
+        }
+        100% {
+          width: 0;
+        }
+      }
+      @-o-keyframes type {
+        0% {
+          width: 0;
+        }
+        30% {
+          width: 22px;
+        }
+        60% {
+          width: 0;
+        }
+        100% {
+          width: 0;
+        }
+      }
+      @keyframes type {
+        0% {
+          width: 0;
+        }
+        30% {
+          width: 22px;
+        }
+        60% {
+          width: 0;
+        }
+        100% {
+          width: 0;
+        }
+      }
+      @-moz-keyframes shake-little {
+        2% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        4% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        6% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        8% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        10% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        12% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        14% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        16% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        18% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        20% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        22% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        24% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        26% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        28% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        30% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        32% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        34% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        36% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        38% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        40% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        42% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        44% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        46% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        48% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        50% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        52% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        54% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        56% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        58% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        60% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        62% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        64% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        66% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        68% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        70% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        72% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        74% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        76% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        78% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        80% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        82% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        84% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        86% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        88% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        90% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        92% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        94% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        96% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        98% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        0%,
+        100% {
+          transform: translate(0, 0) rotate(0);
+        }
+      }
+      @-webkit-keyframes shake-little {
+        2% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        4% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        6% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        8% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        10% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        12% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        14% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        16% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        18% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        20% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        22% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        24% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        26% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        28% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        30% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        32% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        34% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        36% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        38% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        40% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        42% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        44% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        46% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        48% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        50% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        52% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        54% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        56% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        58% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        60% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        62% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        64% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        66% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        68% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        70% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        72% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        74% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        76% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        78% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        80% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        82% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        84% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        86% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        88% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        90% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        92% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        94% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        96% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        98% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        0%,
+        100% {
+          transform: translate(0, 0) rotate(0);
+        }
+      }
+      @-o-keyframes shake-little {
+        2% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        4% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        6% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        8% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        10% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        12% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        14% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        16% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        18% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        20% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        22% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        24% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        26% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        28% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        30% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        32% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        34% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        36% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        38% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        40% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        42% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        44% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        46% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        48% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        50% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        52% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        54% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        56% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        58% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        60% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        62% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        64% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        66% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        68% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        70% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        72% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        74% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        76% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        78% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        80% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        82% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        84% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        86% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        88% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        90% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        92% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        94% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        96% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        98% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        0%,
+        100% {
+          transform: translate(0, 0) rotate(0);
+        }
+      }
+      @keyframes shake-little {
+        2% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        4% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        6% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        8% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        10% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        12% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        14% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        16% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        18% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        20% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        22% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        24% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        26% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        28% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        30% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        32% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        34% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        36% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        38% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        40% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        42% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        44% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        46% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        48% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        50% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        52% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        54% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        56% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        58% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        60% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        62% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        64% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        66% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        68% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        70% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        72% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        74% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        76% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        78% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        80% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        82% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        84% {
+          transform: translate(1px, 1px) rotate(0.5deg);
+        }
+        86% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        88% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        90% {
+          transform: translate(1px, 0px) rotate(0.5deg);
+        }
+        92% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        94% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        96% {
+          transform: translate(0px, 0px) rotate(0.5deg);
+        }
+        98% {
+          transform: translate(0px, 1px) rotate(0.5deg);
+        }
+        0%,
+        100% {
+          transform: translate(0, 0) rotate(0);
+        }
+      }
     </style>
 
-    <h1>Browser Walkie-Talkie (Hold to speak)</h1>
-    <a class="play-button paused" href="#">
+    <h1>Walkie-Talkie (Hold to speak)</h1>
+    <h3 id="userleft"></h3>
+    <div style="text-align: center" id="input-name">
+      <p id="hidden-name"></p>
+      <input
+        id="name"
+        maxlength="10"
+        autocomplete="off"
+        placeholder="Enter your name and press ENTER to start sending audio"
+        size="50"
+      />
+    </div>
+    <div class="play-button paused">
       <div class="left"></div>
       <div class="right"></div>
       <div class="triangle-1"></div>
       <div class="triangle-2"></div>
-    </a>
-    <div style="text-align: center">
-      <a>Total user online :</a>
-      <a class="usercount"></a>
     </div>
+    <div style="text-align: center">
+      <ul id="online-users">
+        <!-- <li>
+          <div class="face walker">
+            <span class="eyes left-eye"></span><span class="eyes right-eye"></span
+            ><span class="mouth"></span>
+          </div>
+          <p>[ Walker ]</p>
+        </li>
+        <li>
+          <div class="face monster">
+            <span class="eyes left-eye"></span><span class="eyes right-eye"></span
+            ><span class="mouth"></span><span class="below-teeth"></span>
+          </div>
+          <p>[ Monster ]</p>
+        </li>
+        <li>
+          <div class="face talker">
+            <span class="eyes left-eye"></span><span class="eyes right-eye"></span
+            ><span class="mouth"></span
+            ><span class="chat"> <div class="words">@#!</div></span>
+          </div>
+          <p>[ Talker ]</p>
+        </li> -->
+      </ul>
+    </div>
+    <br />
+    <br />
+    <!-- <div style="text-align: center">
+      <form>
+        <input type="text" id="input" />
+        <select id="voiceSelect"></select>
+        <button type="button" id="button">Speak</button>
+      </form>
+    </div> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
-      console.log(socket);
-      socket.on("audioMessage", function (audioChunks) {
-        const audioBlob = new Blob(audioChunks);
+      socket.on("audioMessage", function (obj) {
+        const audioBlob = new Blob(obj.audio);
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
+
+
+        var startTime;
+        var endTime;
+        audio.addEventListener('ended', (event) => {
+          endTime = event.timeStamp;
+          var duration = endTime-startTime;
+          console.log(duration/1000);
+          for (let i = 0; i < $("li").size(); i++) {
+          if ($("li p")[i].innerText.toLowerCase() === obj.speaker.toLowerCase()) {
+            $($($($("li")[i]).children('.talker')[0]).children('.chat')[0]).css('opacity','')
+            $($($($("li")[i]).children('.talker')[0]).children('.mouth')[0]).css({'transition' : '', 'animation' : ''})
+            $($($($($("li")[i]).children('.talker')[0]).children('.chat')[0]).children('words')[0]).css('animation','')
+          }
+        }
+        });
         audio.play();
+        audio.addEventListener("canplaythrough", (event) => {
+          startTime = event.timeStamp;
+        });
+        
+        for (let i = 0; i < $("li").size(); i++) {
+          if ($("li p")[i].innerText.toLowerCase() === obj.speaker.toLowerCase()) {
+            $($($($("li")[i]).children('.talker')[0]).children('.chat')[0]).css('opacity',1)
+            $($($($("li")[i]).children('.talker')[0]).children('.mouth')[0]).css('transition',0)
+            $($($($("li")[i]).children('.talker')[0]).children('.mouth')[0]).css('animation','talk 0.6s both infinite')
+            $($($($($("li")[i]).children('.talker')[0]).children('.chat')[0]).children('words')[0]).css('animation','type 1.6s 0.3s infinite both')
+          }
+        }
       });
 
-      socket.on("user", function (usercount) {
-        $(".usercount").text(usercount);
+      // socket.on("user", function (usercount) {
+      //   console.log(usercount);
+      //   $(".usercount").text(usercount);
+      // });
+
+      socket.on("username", function (obj) {
+        console.log(obj);
+        if(obj.username.length == 1){
+          if(socket.id == obj.socketId){
+            var html = `Hey ${obj.newest}!!! You are the only one here send <i onclick="navigator.clipboard.writeText(window.location.href);" style="cursor: pointer;">this</i> url to your friends or family and enjoy talking to them...`;
+          $('#userleft').html(html);
+          }
+        }else{
+          $('#userleft').html('');
+        }
+
+        // var totalUsers = "";
+        // username.forEach(element => {
+        //   totalUsers += element.charAt(0).toUpperCase()+element.slice(1) + ", "
+        // });
+
+        // $('#userinchat').text(totalUsers.substring(0,totalUsers.length-2) + " are in the conversation");
+
+        var html = "";
+        for (let user of obj.username) {
+          html += `<li>
+          <div class="face talker">
+            <span class="eyes left-eye"></span>
+            <span class="eyes right-eye"></span>
+            <span class="mouth"></span>
+            <span class="chat"><div class="words">Speaking</div></span>
+          </div>
+          <p style="text-transform: capitalize;">${user}</p>
+        </li>`;
+        }
+        $("#online-users").html(html);
+      });
+
+      socket.on("userleft", function (username) {
+        console.log(username);
+
+        $('#userleft').text("Last user left : "+username.charAt(0).toUpperCase()+username.slice(1));
+
+        for (let i = 0; i < $("li").size(); i++) {
+          if ($("li p")[i].innerText.toLowerCase() === username) {
+            $($("li")[i]).remove();
+          }
+        }
       });
 
       navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
@@ -136,10 +1322,92 @@
           audioChunks.push(event.data);
         });
         mediaRecorder.addEventListener("stop", () => {
-          //socket.broadcast.emit('audioMessage', audioChunks);
-          socket.emit("audioMessage", audioChunks);
+          var obj = {
+            audio: audioChunks,
+            speaker: $("#hidden-name").data("username"),
+          };
+          socket.emit("audioMessage", obj);
           audioChunks = [];
         });
+      });
+
+      $(document).keypress(function (e) {
+        var key = e.which;
+        if (key == 13) {
+          if ($("#name").val() && $("#name").val() !== undefined) {
+            $("#input-name").hide();
+            $(".play-button").css("pointer-events", "all");
+            $("#hidden-name").attr("data-username", $("#name").val());
+            socket.emit("username", $("#name").val());
+            $(".right").css("background-color", "white");
+            $(".left").css("background-color", "white");
+            $("#name").val("");
+          }
+
+          return false;
+        }
+      });
+
+      function populateVoiceList() {
+        if (typeof speechSynthesis === "undefined") {
+          return;
+        }
+
+        const voices = speechSynthesis.getVoices();
+
+        for (let i = 0; i < voices.length; i++) {
+          const option = document.createElement("option");
+          option.textContent = `${voices[i].name} (${voices[i].lang})`;
+          option.setAttribute("data-lang", voices[i].lang);
+          option.setAttribute("data-name", voices[i].name);
+          //document.getElementById("voiceSelect").appendChild(option);
+        }
+      }
+
+      populateVoiceList();
+      if (
+        typeof speechSynthesis !== "undefined" &&
+        speechSynthesis.onvoiceschanged !== undefined
+      ) {
+        speechSynthesis.onvoiceschanged = populateVoiceList;
+      }
+
+      button.addEventListener("click", () => {
+        if ("speechSynthesis" in window) {
+          const to_speak = new SpeechSynthesisUtterance(
+            input.value || "Hello world!"
+          );
+          const voices = speechSynthesis.getVoices();
+          speechSynthesis.cancel();
+
+          for (let a of voices) {
+            if (
+              a.lang ===
+              $($("#voiceSelect").children("option:selected")[0]).data("lang")
+            ) {
+              to_speak.voice = a;
+              to_speak.lang = a.lang;
+              speechSynthesis.speak(to_speak);
+
+              var audioChunks = [];
+              chrome.tabCapture.capture({ audio: true }, function (stream) {
+                const mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.start();
+                mediaRecorder.addEventListener("dataavailable", (event) => {
+                  audioChunks.push(event.data);
+                });
+                mediaRecorder.addEventListener("stop", () => {
+                  socket.emit("audioMessage", audioChunks);
+                  audioChunks = [];
+                });
+              });
+
+              break;
+            }
+          }
+        } else {
+          alert("not supported");
+        }
       });
     </script>
   </body>
