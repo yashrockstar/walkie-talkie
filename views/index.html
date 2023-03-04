@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Walkie-talkie</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   </head>
   <body>
     <style>
@@ -196,9 +197,9 @@
         transition: 0;
         animation: talk 0.6s both infinite;
       } */
-      .talker:hover .chat {
+      /* .talker:hover .chat {
         opacity: 1;
-      }
+      } */
       /* .talker:hover .chat .words {
         animation: type 1.6s 0.3s infinite both;
       } */
@@ -1182,39 +1183,19 @@
     </div>
     <div style="text-align: center">
       <ul id="online-users">
-        <!-- <li>
-          <div class="face walker">
-            <span class="eyes left-eye"></span><span class="eyes right-eye"></span
-            ><span class="mouth"></span>
-          </div>
-          <p>[ Walker ]</p>
-        </li>
-        <li>
-          <div class="face monster">
-            <span class="eyes left-eye"></span><span class="eyes right-eye"></span
-            ><span class="mouth"></span><span class="below-teeth"></span>
-          </div>
-          <p>[ Monster ]</p>
-        </li>
-        <li>
-          <div class="face talker">
-            <span class="eyes left-eye"></span><span class="eyes right-eye"></span
-            ><span class="mouth"></span
-            ><span class="chat"> <div class="words">@#!</div></span>
-          </div>
-          <p>[ Talker ]</p>
-        </li> -->
       </ul>
     </div>
     <br />
     <br />
-    <!-- <div style="text-align: center">
+    <div style="text-align: center">
       <form>
         <input type="text" id="input" />
         <select id="voiceSelect"></select>
-        <button type="button" id="button">Speak</button>
+        <button type="button" id="check">Sound Check</button>
+        <button type="button" id="send">Send</button>
       </form>
-    </div> -->
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
@@ -1232,8 +1213,9 @@
           var duration = endTime-startTime;
           console.log(duration/1000);
           for (let i = 0; i < $("li").size(); i++) {
-          if ($("li p")[i].innerText.toLowerCase() === obj.speaker.toLowerCase()) {
-            $($($($("li")[i]).children('.talker')[0]).children('.chat')[0]).css('opacity','')
+          if ($("li p")[i].innerText.trim().toLowerCase() === obj.speaker.toLowerCase()) {
+            $('#'+obj.speaker.toLowerCase()+'-mic-mute').show();
+            $('#'+obj.speaker.toLowerCase()+'-speaker').hide();
             $($($($("li")[i]).children('.talker')[0]).children('.mouth')[0]).css({'transition' : '', 'animation' : ''})
             $($($($($("li")[i]).children('.talker')[0]).children('.chat')[0]).children('words')[0]).css('animation','')
           }
@@ -1243,10 +1225,10 @@
         audio.addEventListener("canplaythrough", (event) => {
           startTime = event.timeStamp;
         });
-        
         for (let i = 0; i < $("li").size(); i++) {
-          if ($("li p")[i].innerText.toLowerCase() === obj.speaker.toLowerCase()) {
-            $($($($("li")[i]).children('.talker')[0]).children('.chat')[0]).css('opacity',1)
+          if ($("li p")[i].innerText.trim().toLowerCase() === obj.speaker.toLowerCase()) {
+            $('#'+obj.speaker.toLowerCase()+'-mic-mute').hide();
+            $('#'+obj.speaker.toLowerCase()+'-speaker').show();
             $($($($("li")[i]).children('.talker')[0]).children('.mouth')[0]).css('transition',0)
             $($($($("li")[i]).children('.talker')[0]).children('.mouth')[0]).css('animation','talk 0.6s both infinite')
             $($($($($("li")[i]).children('.talker')[0]).children('.chat')[0]).children('words')[0]).css('animation','type 1.6s 0.3s infinite both')
@@ -1286,7 +1268,11 @@
             <span class="mouth"></span>
             <span class="chat"><div class="words">Speaking</div></span>
           </div>
-          <p style="text-transform: capitalize;">${user}</p>
+          <p style="text-transform: capitalize;">${user}
+            <i style="margin-left: 3px;" id="${user}-mic-mute" class="fa-solid fa-microphone-lines-slash"></i>
+            <i style="margin-left: 3px; display :none;" id="${user}-mic" class="fa-solid fa-microphone-lines"></i>
+            <i style="margin-left: 3px; display :none;" id="${user}-speaker" class="fa-solid fa-headphones"></i>
+          </p>
         </li>`;
         }
         $("#online-users").html(html);
@@ -1304,16 +1290,25 @@
         }
       });
 
+      socket.on("textToSpeech", function (obj) {
+          textToSpeak(obj.text_to_speak,obj.language_selected, obj.speaker)
+      });
+
       navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
         const mediaRecorder = new MediaRecorder(stream);
         var audioChunks = [];
         $(".play-button")
           .on("mousedown touchstart", function (e) {
             mediaRecorder.start();
+            $('#'+$("#hidden-name").data("username").toLowerCase()+'-mic-mute').hide();
+            $('#'+$("#hidden-name").data("username").toLowerCase()+'-mic').show();
             $(this).toggleClass("paused");
           })
           .bind("mouseup mouseleave touchend", function () {
             if (mediaRecorder.state !== "inactive") {
+              var speaker = $("#hidden-name").data("username")
+              $('#'+$("#hidden-name").data("username").toLowerCase()+'-mic-mute').show();
+              $('#'+$("#hidden-name").data("username").toLowerCase()+'-mic').hide();
               mediaRecorder.stop();
               $(this).toggleClass("paused");
             }
@@ -1360,7 +1355,7 @@
           option.textContent = `${voices[i].name} (${voices[i].lang})`;
           option.setAttribute("data-lang", voices[i].lang);
           option.setAttribute("data-name", voices[i].name);
-          //document.getElementById("voiceSelect").appendChild(option);
+          document.getElementById("voiceSelect").appendChild(option);
         }
       }
 
@@ -1372,7 +1367,7 @@
         speechSynthesis.onvoiceschanged = populateVoiceList;
       }
 
-      button.addEventListener("click", () => {
+      $('#check').on("click", () => {
         if ("speechSynthesis" in window) {
           const to_speak = new SpeechSynthesisUtterance(
             input.value || "Hello world!"
@@ -1381,27 +1376,10 @@
           speechSynthesis.cancel();
 
           for (let a of voices) {
-            if (
-              a.lang ===
-              $($("#voiceSelect").children("option:selected")[0]).data("lang")
-            ) {
+            if (a.lang === $($("#voiceSelect").children("option:selected")[0]).data("lang")) {
               to_speak.voice = a;
               to_speak.lang = a.lang;
               speechSynthesis.speak(to_speak);
-
-              var audioChunks = [];
-              chrome.tabCapture.capture({ audio: true }, function (stream) {
-                const mediaRecorder = new MediaRecorder(stream);
-                mediaRecorder.start();
-                mediaRecorder.addEventListener("dataavailable", (event) => {
-                  audioChunks.push(event.data);
-                });
-                mediaRecorder.addEventListener("stop", () => {
-                  socket.emit("audioMessage", audioChunks);
-                  audioChunks = [];
-                });
-              });
-
               break;
             }
           }
@@ -1409,6 +1387,84 @@
           alert("not supported");
         }
       });
+
+      $('#send').on("click", () => {
+
+        var text_to_speak ;
+        var voice_selected;
+        var language_selected;
+
+
+        if ("speechSynthesis" in window) {
+          text_to_speak = input.value || "Hello everyone!";
+          const voices = speechSynthesis.getVoices();
+          speechSynthesis.cancel();
+
+          for (let a of voices) {
+            if (a.lang === $($("#voiceSelect").children("option:selected")[0]).data("lang")) {
+              language_selected = a.lang;
+
+              var obj = {
+                "text_to_speak" : text_to_speak,
+                "language_selected" : language_selected,
+                "speaker" : $("#hidden-name").data("username")
+              }
+
+              socket.emit("textToSpeech", obj);
+              break;
+            }
+          }
+        } else {
+          alert("not supported");
+        }
+      });
+
+      function textToSpeak(text, language, speaker){
+        if ("speechSynthesis" in window) {
+          const to_speak = new SpeechSynthesisUtterance(text);
+          const voices = speechSynthesis.getVoices();
+          speechSynthesis.cancel();
+
+          for (let a of voices) {
+            if (a.lang === language) {
+              console.log(a);
+              console.log(a.lang);
+              to_speak.voice = a;
+              to_speak.lang = a.lang;
+              speechSynthesis.speak(to_speak);
+
+              to_speak.onstart = function (event) {
+                  console.log(event);
+                  for (let i = 0; i < $("li").size(); i++) {
+                    if ($("li p")[i].innerText.trim().toLowerCase() === speaker.toLowerCase()) {
+                      $('#'+speaker.toLowerCase()+'-mic-mute').hide();
+                      $('#'+speaker.toLowerCase()+'-speaker').show();
+                      $($($($("li")[i]).children('.talker')[0]).children('.mouth')[0]).css('transition',0)
+                      $($($($("li")[i]).children('.talker')[0]).children('.mouth')[0]).css('animation','talk 0.6s both infinite')
+                      $($($($($("li")[i]).children('.talker')[0]).children('.chat')[0]).children('words')[0]).css('animation','type 1.6s 0.3s infinite both')
+                    }
+                  }
+              };
+
+              to_speak.onend = function (event) {
+                console.log(event);
+                for (let i = 0; i < $("li").size(); i++) {
+                  if ($("li p")[i].innerText.trim().toLowerCase() === speaker.toLowerCase()) {
+                    $('#'+speaker.toLowerCase()+'-mic-mute').show();
+                    $('#'+speaker.toLowerCase()+'-speaker').hide();
+                    $($($($("li")[i]).children('.talker')[0]).children('.chat')[0]).css('opacity','')
+                    $($($($("li")[i]).children('.talker')[0]).children('.mouth')[0]).css({'transition' : '', 'animation' : ''})
+                    $($($($($("li")[i]).children('.talker')[0]).children('.chat')[0]).children('words')[0]).css('animation','')
+                  }
+                }
+              };
+              break;
+            }
+          }
+        } else {
+          alert("not supported");
+        }
+      }
     </script>
   </body>
 </html>
