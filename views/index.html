@@ -1211,7 +1211,6 @@
         audio.addEventListener('ended', (event) => {
           endTime = event.timeStamp;
           var duration = endTime-startTime;
-          console.log(duration/1000);
           for (let i = 0; i < $("li").size(); i++) {
           if ($("li p")[i].innerText.trim().toLowerCase() === obj.speaker.toLowerCase()) {
             $('#'+obj.speaker.toLowerCase()+'-mic-mute').show();
@@ -1242,7 +1241,6 @@
       // });
 
       socket.on("username", function (obj) {
-        console.log(obj);
         if(obj.username.length == 1){
           if(socket.id == obj.socketId){
             var html = `Hey ${obj.newest}!!! You are the only one here send <i onclick="navigator.clipboard.writeText(window.location.href);" style="cursor: pointer;">this</i> url to your friends or family and enjoy talking to them...`;
@@ -1279,8 +1277,6 @@
       });
 
       socket.on("userleft", function (username) {
-        console.log(username);
-
         $('#userleft').text("Last user left : "+username.charAt(0).toUpperCase()+username.slice(1));
 
         for (let i = 0; i < $("li").size(); i++) {
@@ -1427,14 +1423,11 @@
 
           for (let a of voices) {
             if (a.lang === language) {
-              console.log(a);
-              console.log(a.lang);
               to_speak.voice = a;
               to_speak.lang = a.lang;
               speechSynthesis.speak(to_speak);
 
               to_speak.onstart = function (event) {
-                  console.log(event);
                   for (let i = 0; i < $("li").size(); i++) {
                     if ($("li p")[i].innerText.trim().toLowerCase() === speaker.toLowerCase()) {
                       $('#'+speaker.toLowerCase()+'-mic-mute').hide();
@@ -1447,7 +1440,6 @@
               };
 
               to_speak.onend = function (event) {
-                console.log(event);
                 for (let i = 0; i < $("li").size(); i++) {
                   if ($("li p")[i].innerText.trim().toLowerCase() === speaker.toLowerCase()) {
                     $('#'+speaker.toLowerCase()+'-mic-mute').show();
