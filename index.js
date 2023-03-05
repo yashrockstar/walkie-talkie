@@ -39,6 +39,13 @@ io.on("connection", function (socket) {
     socket.broadcast.emit("textToSpeech", obj);
   });
 
+  socket.on("currentSpeakerStart", function (msg) {
+    socket.broadcast.emit("currentSpeakerStart", msg);
+  });
+  socket.on("currentSpeakerStop", function (msg) {
+    socket.broadcast.emit("currentSpeakerStop", msg);
+  });
+
   socket.on("username", function (msg) {
     if (!username.includes(msg.toLowerCase())) {
       username.push(msg.toLowerCase());
