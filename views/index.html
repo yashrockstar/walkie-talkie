@@ -2230,6 +2230,7 @@ button:focus {
 
       socket.on("userleft", function (username) {
         $('#userleft').text("Last user left : "+username.charAt(0).toUpperCase()+username.slice(1));
+        setInterval(function () {$('#userleft').text('')}, 5000);
 
         for (let i = 0; i < $(".bots").size(); i++) {
           if ($($($(".bots")[i]).children('div')[0]).children('p')[0].innerText.trim().toLowerCase() === username) {
