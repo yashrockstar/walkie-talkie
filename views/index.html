@@ -2020,6 +2020,7 @@ button:focus {
                   <div id="audio-send-ui" style="display: none; background-color: #31323e">
 
                     <h4 id="userleft" style="text-align: center; color: #accaff;"></h4>
+                    <h4 id="announcement" style="text-align: center; color: #accaff;"></h4>
                     <div style="text-align: center" id="input-name">
                       <p id="hidden-name"></p>
                       <input
@@ -2248,11 +2249,11 @@ button:focus {
       });
 
       socket.on("currentSpeakerStart", function (msg) {
-        $('#userleft').text(msg);
+        $('#announcement').text(msg);
       });
 
       socket.on("currentSpeakerStop", function (msg) {
-        $('#userleft').text('');
+        $('#announcement').text('');
       });
 
       navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
