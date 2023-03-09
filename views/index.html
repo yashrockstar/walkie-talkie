@@ -1926,7 +1926,7 @@ button:focus {
     
     <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -1945,7 +1945,6 @@ button:focus {
                 <div class="chat-header">
                   <div class="msg-search">
                     <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Search" aria-label="search">
-                    <a class="add" href="#"><img class="img-fluid" src="https://mehedihtml.com/chatbox/assets/img/add.svg" alt="add"></a>
                   </div>
 
                   <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -1967,12 +1966,10 @@ button:focus {
                         <div class="chat-list">
                           <a href="#" class="d-flex align-items-center" id="public-chat">
                             <div class="flex-shrink-0">
-                              <img class="img-fluid" src="https://mehedihtml.com/chatbox/assets/img/user.png" alt="user img">
-                              <span class="active"></span>
+                              <i class="fa-solid fa-user"></i>
                             </div>
-                            <div class="flex-grow-1 ms-3">
-                              <h3>Public Rooms</h3>
-                              <p>Talk anonymously</p>
+                            <div style="margin-left: 5px;">
+                              <h3>Public Room 1<span class="active" style="margin-left: 90px;"></span></h3>
                             </div>
                           </a>
                         </div>
@@ -1996,17 +1993,12 @@ button:focus {
                   <div class="row">
                     <div class="col-8">
                       <div class="d-flex align-items-center">
-                        <span class="chat-icon"><img class="img-fluid" src="https://mehedihtml.com/chatbox/assets/img/arroleftt.svg" alt="image title"></span>
-                        <div class="flex-shrink-0">
-                          <img class="img-fluid" src="https://mehedihtml.com/chatbox/assets/img/user.png" alt="user img">
-                        </div>
                         <div class="flex-grow-1 ms-3">
-                          <h3>Walkie-Talkie</h3>
-                          <p>Hold to speak</p>
+                          <h3>Walkie-Talkie : Hold to speak</h3>
                         </div>
                       </div>
                     </div>
-                    <div class="col-4">
+                    <!-- <div class="col-4">
                       <ul class="moreoption">
                         <li class="navbar nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
@@ -2020,7 +2012,7 @@ button:focus {
                           </ul>
                         </li>
                       </ul>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
 
@@ -2059,7 +2051,7 @@ button:focus {
                     <button type="button" id="send"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send</button>
                   </form>
 
-                  <div class="send-btns">
+                  <!-- <div class="send-btns">
                     <div class="attach">
                       <div class="button-wrapper">
                         <span class="label">
@@ -2081,7 +2073,7 @@ button:focus {
                           </svg> Appoinment</a>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
 
                 </div>
               </div>
@@ -2130,11 +2122,14 @@ button:focus {
         <button type="button" id="send">Send</button>
       </form>
     </div> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
+
       $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
           $(".chat-list a").click(function () {
             $(".chatbox").addClass("showbox");
             return false;
@@ -2193,8 +2188,17 @@ button:focus {
       socket.on("username", function (obj) {
         if(obj.username.length == 1){
           if(socket.id == obj.socketId){
-            var html = `Hey ${obj.newest}!!! You are the only one here send <i onclick="navigator.clipboard.writeText(window.location.href);" style="cursor: pointer;">this</i> url to your friends or family and enjoy talking to them...`;
-          $('#userleft').html(html).css('font-family', 'Bangers');
+            var name = obj.newest;
+            var html = `Hey ${name.charAt(0).toUpperCase()+name.substring(1)} !!! You are the only one here send <i id="urlCopy" onclick="navigator.clipboard.writeText(window.location.href); $('#urlCopy').attr('title', 'copied');" style="cursor: pointer;" data-toggle="tooltip" title="Click to copy"><u>this</u></i> url to your friends or family and enjoy talking to them...<i class="fa-solid fa-face-grin-hearts" style="color: yellow;"></i>`;
+          $('#userleft').html(html).css('font-family', 'Calibri');
+         
+          // setInterval(() => {
+          //   $("#urlCopy").hover(function(e){
+          //     $("#urlCopy").css("background-color", "yellow");
+          //     }, function(){
+          //     $("#urlCopy").css("background-color", "pink");
+          //   });
+          // },1000);
           }
         }else{
           $('#userleft').html('');
